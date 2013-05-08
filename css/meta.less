@@ -1,2 +1,54 @@
 @import "bootstrap.min.css";
 @import "bootstrap-responsive.min.css";
+
+
+@mapCellWidth: 96px;
+@mapCellHeight:87px;
+@assetWidth: 100px;
+@assetHeight: 115px;
+
+#map ul {
+  list-style: none;
+  margin:0;
+  padding:0;
+}
+
+.mapRow {
+  width: @mapCellWidth;
+  display: inline-block;
+}
+
+.mapCell {
+  width: @mapCellWidth;
+  height: @mapCellHeight;
+  position:relative;
+  overflow:visible;
+  text-align: center;
+}
+
+.mapCellLink {
+  position: absolute;
+  width: @mapCellWidth;
+  height: @mapCellHeight;
+  top:0px;
+  left:0px;
+  z-index:30;
+}
+
+.unitAsset, .terrainAsset {
+  position: absolute;
+  bottom:-10px;
+  left:0px;
+  height: @assetHeight;
+  width: @assetWidth;
+  border-width: 0px;
+  max-width: none !important; 
+}
+
+.unitAsset {
+  z-index:20;
+}
+
+.terrainAsset {
+  z-index:10;
+}
