@@ -32,11 +32,12 @@
               <ul>
                 <li>
                   <a ng-click="selectTerrain(false);">
-                    Remove
+                    Remove Terrain
                   </a>
                 </li>
                 <li ng-repeat="terrain in terrains">
                   <a ng-click="selectTerrain(terrain.id);">
+                    <img src="{{terrain.art}}" class="terrainAssetToolbar" />
                     {{terrain.label}}
                   </a>
                 </li>
@@ -49,7 +50,7 @@
                   <li ng-repeat="row in map" class="mapRow">
                     <ul>
                       <li ng-repeat="cell in row" class="mapCell">
-                        <img class="terrainAsset" src="{{terrains[cell.terrain].art}}" />
+                        <img class="terrainAsset" src="{{terrains[cell.terrain].art}}" ng-hide="!cell.terrain" />
                         <a ng-click="clickMapCell(cell.x,cell.y);" class="mapCellLink"></a>
                       </li>
                     </ul>
