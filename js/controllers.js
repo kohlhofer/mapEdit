@@ -3,7 +3,7 @@ function mapController($scope) {
   var terrainAssetPath = "img/terrains/"
   var unitAssetPath = "img/units/grey/"
 
-  $scope.selectedUnit = 'none';
+  $scope.selectedUnit = false;
   $scope.selectedTerrain = 'plain';
 
 

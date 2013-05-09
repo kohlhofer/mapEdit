@@ -10,7 +10,7 @@
 
 #map {
   overflow:auto;
-  padding-top: 10px;
+  padding-top: 0px;
   border:1px solid #EEE;
   ul {
     list-style: none;
@@ -36,6 +36,7 @@
   overflow:visible;
   text-align: center;
   //border:1px solid #F00;
+  background:transparent url('../img/terrains/base.png') no-repeat top left;
 }
 
 .mapCellLink {
@@ -49,7 +50,6 @@
 
 .unitAsset, .terrainAsset {
   position: absolute;
-  bottom:-8px;
   left:0px;
   height: @assetHeight;
   width: @assetWidth;
@@ -74,8 +74,10 @@
 
 .unitAsset {
   z-index:20;
+  bottom:-5px;
 }
 
 .terrainAsset {
   z-index:10;
+  bottom:-8px;
 }
