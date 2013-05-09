@@ -115,6 +115,14 @@ function mapController($scope) {
     }
   }
 
+  $scope.mapToJson = function() {
+    $scope.mapJson = angular.toJson($scope.map);
+  }
+
+  $scope.JsonToMap = function() {
+    $scope.map = angular.fromJson($scope.mapJson);
+  }
+
 
 
   $scope.map = $scope.setUpMap();
