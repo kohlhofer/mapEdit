@@ -38,11 +38,12 @@
                   </a>
                 </li>
                 <li ng-repeat="terrain in terrains" class="tool" ng-class="{selectedTool: terrain.id==selectedTerrain}">
-                  <a ng-click="selectTerrain(terrain.id);" alt="{{terrain.label}}">
-                    <img src="{{terrain.art}}" class="terrainAssetToolbar" />
+                  <a ng-click="selectTerrain(terrain.id);" title="{{terrain.label}}">
+                    <img src="{{terrain.art[terrain.artVariant]}}" class="terrainAssetToolbar" />
                   </a>
                 </li>
               </ul>
+              <p class="tip">Double click to access art variations</p>
             </div>
             <div class="span1">
               <ul class="toolBar">
@@ -52,8 +53,8 @@
                   </a>
                 </li>
                 <li ng-repeat="unit in units" ng-class="{selectedTool: unit.id==selectedUnit}">
-                  <a ng-click="selectUnit(unit.id);" alt="{{unit.label}}">
-                    <img src="{{unit.art}}" class="unitAssetToolbar" />
+                  <a ng-click="selectUnit(unit.id);" title="{{unit.label}}">
+                    <img src="{{unit.art.right}}" class="unitAssetToolbar" />
                   </a>
                 </li>
               </ul>
@@ -64,8 +65,8 @@
                   <li ng-repeat="row in map" class="mapRow">
                     <ul class="mapCells">
                       <li ng-repeat="cell in row" class="mapCell">
-                        <img class="terrainAsset" src="{{terrains[cell.terrain].art}}" ng-hide="cell.terrain == 'none'" />
-                        <img class="unitAsset" src="{{units[cell.unit].art}}" ng-hide="cell.unit == 'none'" />
+                        <img class="terrainAsset" src="{{terrains[cell.terrain].art[cell.artVariant]}}" ng-hide="cell.terrain == 'none'" />
+                        <img class="unitAsset" src="{{units[cell.unit].art.right}}" ng-hide="cell.unit == 'none'" />
                         <a ng-click="clickMapCell(cell.x,cell.y);" class="mapCellLink"></a>
                       </li>
                     </ul>
