@@ -49,27 +49,27 @@ function mapController($scope) {
   $scope.units = {
     mediumTank:{
       id:'mediumTank',
-      art:unitAssetPath+"mediumTank.png",
+      art:unitAssetPath+"mediumtank.png",
       label:'medium tank'
     },
     lightTank:{
       id:'lightTank',
-      art:unitAssetPath+"lightTank.png",
+      art:unitAssetPath+"lighttank.png",
       label:'light tank'
     },
     heavyTank:{
       id:'heavyTank',
-      art:unitAssetPath+"heavyTank.png",
+      art:unitAssetPath+"heavytank.png",
       label:'heavy tank'
     },
     mediumArtillery:{
       id:'mediumArtillery',
-      art:unitAssetPath+"mediumArtillery.png",
+      art:unitAssetPath+"mediumartillery.png",
       label:'medium artillery'
     },
     spiderBot:{
       id:'spiderBot',
-      art:unitAssetPath+"spiderBot.png",
+      art:unitAssetPath+"spiderbot.png",
       label:'spider Bot'
     }
   }
