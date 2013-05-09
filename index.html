@@ -32,8 +32,8 @@
             </div>
             <div class="span1">
               <ul class="toolBar">
-                <li>
-                  <a ng-click="selectTerrain('none');" class="tool" ng-class="{selectedTool: selectedTerrain=='none'}">
+                <li class="tool">
+                  <a ng-click="selectTerrain('none');" ng-class="{selectedTool: selectedTerrain=='none'}">
                     Remove Terrain
                   </a>
                 </li>
@@ -46,9 +46,9 @@
             </div>
             <div class="span1">
               <ul class="toolBar">
-                <li>
+                <li class="tool">
                   <a ng-click="selectUnit('none');" ng-class="{selectedTool: selectedUnit=='none'}">
-                    <i class="icon-remove-circle"></i> Remove Unit
+                    Remove Unit
                   </a>
                 </li>
                 <li ng-repeat="unit in units" ng-class="{selectedTool: unit.id==selectedUnit}">
