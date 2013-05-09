@@ -5,8 +5,10 @@ function mapController($scope) {
 
   $scope.selectedUnit = false;
   $scope.selectedTerrain = 'plain';
-  $scope.selectedTerrainVariation = 0;
 
+
+  // Master object holding all terrains
+  // artVariant refers to the art asset currently selected in the tool bar.
 
   $scope.terrains = {
     dessert:{
@@ -53,6 +55,8 @@ function mapController($scope) {
     }
   }
 
+  // Master object holding all units
+  // Orientations other than right are not supported, yet. 
 
   $scope.units = {
     mediumTank:{
@@ -92,6 +96,9 @@ function mapController($scope) {
     }
   }
 
+  // Initializes the Map
+  // Dimension can currently not be edited after the initalisation.
+
   $scope.setUpMap = function() {
     var width = 16;
     var height = 12;
@@ -115,6 +122,9 @@ function mapController($scope) {
     return map;
   }
 
+  // Called when the user selects a terrain in the toolbar
+  // If the terrain is already selected it cycles through avaialable art variations
+
   $scope.selectTerrain = function(terrain) {
     if ($scope.selectedTerrain == terrain) {
       if ($scope.terrains[terrain].artVariant == $scope.terrains[terrain].art.length-1) {
@@ -128,11 +138,15 @@ function mapController($scope) {
     $scope.selectedUnit = false;
   }
 
+  // Called when the user selects a terrain in the toolbar
+
   $scope.selectUnit = function(unit) {
     $scope.selectedUnit = unit;
     $scope.selectedTerrain = false;
   }
 
+  // Calles when the user clicks on a cell in the map
+  // Depending on which tool is selected modifies either terrain or unit property of the map cell
 
   $scope.clickMapCell = function(x,y) {
     if ($scope.selectedTerrain) {
@@ -144,16 +158,22 @@ function mapController($scope) {
     }
   }
 
+  // Converts the map data to JSON.
+  // JSON can be copy and pasted through textarea. Triggered thorugh Button in the UI.
+
   $scope.mapToJson = function() {
     $scope.mapJson = angular.toJson($scope.map);
   }
+
+  // Overwrites the MAP from a JSON string
+  // JSON entered through textarea. Triggered thorugh Button in the UI.
 
   $scope.JsonToMap = function() {
     $scope.map = angular.fromJson($scope.mapJson);
   }
 
-
-
+  // called to init the map
+  
   $scope.map = $scope.setUpMap();
 
 
