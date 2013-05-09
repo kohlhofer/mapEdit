@@ -19,7 +19,7 @@ function mapController($scope) {
     },
     plain:{
       id:'plain',
-      art:[terrainAssetPath+"plain_0.png", terrainAssetPath+"plain_1.png"],
+      art:[terrainAssetPath+"plain_0.png", terrainAssetPath+"plain_1.png", terrainAssetPath+"plain_2.png"],
       artVariant:0,
       label:'plain'
     },
@@ -37,7 +37,7 @@ function mapController($scope) {
     },
     mountain:{
       id:'mountain',
-      art:[terrainAssetPath+"mountain.png"],
+      art:[terrainAssetPath+"mountain_0.png",terrainAssetPath+"mountain_1.png"],
       artVariant:0,
       label:'mountain'
     },
@@ -49,7 +49,7 @@ function mapController($scope) {
     },
     forrest:{
       id:'forrest', 
-      art:[terrainAssetPath+"forrest_0.png", terrainAssetPath+"forrest_1.png"],
+      art:[terrainAssetPath+"forrest_0.png", terrainAssetPath+"forrest_1.png", terrainAssetPath+"forrest_2.png"],
       artVariant:0,
       label:'forrest'
     }
@@ -173,7 +173,7 @@ function mapController($scope) {
   }
 
   // called to init the map
-  
+
   $scope.map = $scope.setUpMap();
 
 
