@@ -1,55 +1,85 @@
 function mapController($scope) {
 
   var terrainAssetPath = "img/terrains/"
+  var unitAssetPath = "img/units/grey/"
 
-  $scope.selectedUnit = true;
-  $scope.selectedTerrain = 'dessert';
+  $scope.selectedUnit = 'none';
+  $scope.selectedTerrain = 'plain';
 
 
   $scope.terrains = {
-      dessert:{
-        id:'dessert',
-        art:terrainAssetPath+"dessert.png",
-        label:'dessert'
-      },
-      plain:{
-        id:'plain',
-        art:terrainAssetPath+"plain.png",
-        label:'plain'
-      },
-      deepWater:{
-        id:'deepWater',
-        art:terrainAssetPath+"deepwater.png",
-        label:'deep water'
-      },
-      shallowWater:{
-        id:'shallowWater',
-        art:terrainAssetPath+"shallowwater.png",
-        label:'shallow water'
-      },
-      mountain:{
-        id:'mountain',
-        art:terrainAssetPath+"mountain.png",
-        label:'mountain'
-      },
-      factory:{
-        id:'factory', 
-        art:terrainAssetPath+"factory.png",
-        label:'factory'
-      },
-      forrest:{
-        id:'forrest', 
-        art:terrainAssetPath+"forrest.png",
-        label:'forrest'
-      }
+    dessert:{
+      id:'dessert',
+      art:terrainAssetPath+"dessert.png",
+      label:'dessert'
+    },
+    plain:{
+      id:'plain',
+      art:terrainAssetPath+"plain.png",
+      label:'plain'
+    },
+    deepWater:{
+      id:'deepWater',
+      art:terrainAssetPath+"deepwater.png",
+      label:'deep water'
+    },
+    shallowWater:{
+      id:'shallowWater',
+      art:terrainAssetPath+"shallowwater.png",
+      label:'shallow water'
+    },
+    mountain:{
+      id:'mountain',
+      art:terrainAssetPath+"mountain.png",
+      label:'mountain'
+    },
+    factory:{
+      id:'factory', 
+      art:terrainAssetPath+"factory.png",
+      label:'factory'
+    },
+    forrest:{
+      id:'forrest', 
+      art:terrainAssetPath+"forrest.png",
+      label:'forrest'
     }
+  }
+
+
+  $scope.units = {
+    mediumTank:{
+      id:'mediumTank',
+      art:unitAssetPath+"mediumTank.png",
+      label:'medium tank'
+    },
+    lightTank:{
+      id:'lightTank',
+      art:unitAssetPath+"lightTank.png",
+      label:'light tank'
+    },
+    heavyTank:{
+      id:'heavyTank',
+      art:unitAssetPath+"heavyTank.png",
+      label:'heavy tank'
+    },
+    mediumArtillery:{
+      id:'mediumArtillery',
+      art:unitAssetPath+"mediumArtillery.png",
+      label:'medium artillery'
+    },
+    spiderBot:{
+      id:'spiderBot',
+      art:unitAssetPath+"spiderBot.png",
+      label:'spider Bot'
+    }
+  }
 
   $scope.setUpMap = function() {
-    var width = 9;
-    var height = 9;
+    var width = 16;
+    var height = 12;
     var map = new Array(8);
-    var defaultTerrain = 'plain';
-    var defaultUnit = false;
+    var defaultTerrain = 'none';
+    var defaultUnit = 'none';
 
     for (var x = 0; x < width; x++) {
       map[x] = new Array(height);
@@ -67,12 +97,22 @@ function mapController($scope) {
 
   $scope.selectTerrain = function(terrain) {
     $scope.selectedTerrain = terrain;
+    $scope.selectedUnit = false;
+  }
+
+  $scope.selectUnit = function(unit) {
+    $scope.selectedUnit = unit;
+    $scope.selectedTerrain = false;
   }
 
 
   $scope.clickMapCell = function(x,y) {
-    $scope.map[x][y].terrain = $scope.selectedTerrain;
-    $scope.map[x][y].unit = $scope.selectedUnit;
+    if ($scope.selectedTerrain) {
+      $scope.map[x][y].terrain = $scope.selectedTerrain;
+    }
+    if ($scope.selectedUnit) {
+      $scope.map[x][y].unit = $scope.selectedUnit;
+    }
   }
 
 

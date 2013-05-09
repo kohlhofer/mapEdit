@@ -27,30 +27,45 @@
 
         <div class="container">
           <div class="row">
-            <div class="span2">
-              <h2>Tools</h2>
-              <ul>
+            <div class="span10 offset2">
+              <h1>Map Maker</h1>
+            </div>
+            <div class="span1">
+              <ul class="toolBar">
                 <li>
-                  <a ng-click="selectTerrain(false);">
+                  <a ng-click="selectTerrain('none');" class="tool" ng-class="{selectedTool: selectedTerrain=='none'}">
                     Remove Terrain
                   </a>
                 </li>
-                <li ng-repeat="terrain in terrains">
-                  <a ng-click="selectTerrain(terrain.id);">
+                <li ng-repeat="terrain in terrains" class="tool" ng-class="{selectedTool: terrain.id==selectedTerrain}">
+                  <a ng-click="selectTerrain(terrain.id);" alt="{{terrain.label}}">
                     <img src="{{terrain.art}}" class="terrainAssetToolbar" />
-                    {{terrain.label}}
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="span1">
+              <ul class="toolBar">
+                <li>
+                  <a ng-click="selectUnit('none');" ng-class="{selectedTool: selectedUnit=='none'}">
+                    Remove Unit
+                  </a>
+                </li>
+                <li ng-repeat="unit in units" ng-class="{selectedTool: unit.id==selectedUnit}">
+                  <a ng-click="selectUnit(unit.id);" alt="{{unit.label}}">
+                    <img src="{{unit.art}}" class="unitAssetToolbar" />
                   </a>
                 </li>
               </ul>
             </div>
             <div class="span10">
-              <h2>Maps</h2>
               <div id="map">
-                <ul>
+                <ul class="mapRows">
                   <li ng-repeat="row in map" class="mapRow">
-                    <ul>
+                    <ul class="mapCells">
                       <li ng-repeat="cell in row" class="mapCell">
-                        <img class="terrainAsset" src="{{terrains[cell.terrain].art}}" ng-hide="!cell.terrain" />
+                        <img class="terrainAsset" src="{{terrains[cell.terrain].art}}" ng-hide="cell.terrain == 'none'" />
+                        <img class="unitAsset" src="{{units[cell.unit].art}}" ng-hide="cell.unit == 'none'" />
                         <a ng-click="clickMapCell(cell.x,cell.y);" class="mapCellLink"></a>
                       </li>
                     </ul>
