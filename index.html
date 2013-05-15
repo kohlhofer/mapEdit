@@ -39,7 +39,7 @@
                 </li>
                 <li ng-repeat="terrain in terrains" class="tool" ng-class="{selectedTool: terrain.id==selectedTerrain}">
                   <a ng-click="selectTerrain(terrain.id);" title="{{terrain.label}}">
-                    <img src="{{terrain.art[terrain.artVariant]}}" class="terrainAssetToolbar" />
+                    <img src="{{terrain.art[terrain.terrainVariant]}}" class="terrainAssetToolbar" />
                   </a>
                 </li>
               </ul>
@@ -54,7 +54,7 @@
                 </li>
                 <li ng-repeat="unit in units" ng-class="{selectedTool: unit.id==selectedUnit}">
                   <a ng-click="selectUnit(unit.id);" title="{{unit.label}}">
-                    <img src="{{unit.art.right}}" class="unitAssetToolbar" />
+                    <img src="{{unitAssetPath}}/{{unit.art.right}}" class="unitAssetToolbar" />
                   </a>
                 </li>
               </ul>
@@ -65,8 +65,8 @@
                   <li ng-repeat="row in map" class="mapRow">
                     <ul class="mapCells">
                       <li ng-repeat="cell in row" class="mapCell">
-                        <img class="terrainAsset" src="{{terrains[cell.terrain].art[cell.artVariant]}}" ng-hide="cell.terrain == 'none'" />
-                        <img class="unitAsset" src="{{units[cell.unit].art.right}}" ng-hide="cell.unit == 'none'" />
+                        <img class="terrainAsset" src="{{terrains[cell.terrain].art[cell.terrainVariant]}}" ng-hide="cell.terrain == 'none'" />
+                        <img class="unitAsset" src="{{unitAssetPath}}/{{units[cell.unit].art.right}}" ng-hide="cell.unit == 'none'" />
                         <a ng-click="clickMapCell(cell.x,cell.y);" class="mapCellLink"></a>
                       </li>
                     </ul>
