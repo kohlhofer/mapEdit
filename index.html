@@ -31,6 +31,7 @@
               <h1>Map Maker</h1>
             </div>
             <div class="span1">
+              <h3>Terrains</h3>
               <ul class="toolBar">
                 <li class="tool">
                   <a ng-click="selectTerrain('none');" ng-class="{selectedTool: selectedTerrain=='none'}">
@@ -46,6 +47,7 @@
               <p class="tip">Double click to access art variations</p>
             </div>
             <div class="span1">
+              <h3>Units</h3>
               <ul class="toolBar">
                 <li class="tool">
                   <a ng-click="selectUnit('none');" ng-class="{selectedTool: selectedUnit=='none'}">
@@ -54,7 +56,20 @@
                 </li>
                 <li ng-repeat="unit in units" ng-class="{selectedTool: unit.id==selectedUnit}">
                   <a ng-click="selectUnit(unit.id);" title="{{unit.label}}">
-                    <img src="{{unitAssetPath}}/{{unit.art.right}}" class="unitAssetToolbar" />
+                    <img src="{{unitAssetPath}}/{{selectedFaction}}/{{unit.art.right}}" class="unitAssetToolbar" />
+                  </a>
+                </li>
+              </ul>
+              <h3>Factions</h3>
+              <ul class="toolBar">
+                <li class="tool">
+                  <a ng-click="selectedFaction = 0;" ng-class="{selectedTool: selectedFaction==0}">
+                    Blue
+                  </a>
+                </li>
+                <li class="tool">
+                  <a ng-click="selectedFaction = 1;" ng-class="{selectedTool: selectedFaction==1}">
+                    Red
                   </a>
                 </li>
               </ul>
@@ -66,7 +81,7 @@
                     <ul class="mapCells">
                       <li ng-repeat="cell in row" class="mapCell">
                         <img class="terrainAsset" src="{{terrains[cell.terrain].art[cell.terrainVariant]}}" ng-hide="cell.terrain == 'none'" />
-                        <img class="unitAsset" src="{{unitAssetPath}}/{{units[cell.unit].art[cell.unitOrientation]}}" ng-hide="cell.unit == 'none'" />
+                        <img class="unitAsset" src="{{unitAssetPath}}/{{cell.unitFaction}}/{{units[cell.unit].art[cell.unitOrientation]}}" ng-hide="cell.unit == 'none'" />
                         <a ng-click="clickMapCell(cell.x,cell.y);" class="mapCellLink"></a>
                       </li>
                     </ul>

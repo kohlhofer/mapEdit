@@ -1,10 +1,11 @@
 function mapController($scope) {
 
   var terrainAssetPath = "img/terrains/"
-  $scope.unitAssetPath = "img/units/blue/"
+  $scope.unitAssetPath = "img/units"
 
   $scope.selectedUnit = false;
   $scope.selectedTerrain = 'plain';
+  $scope.selectedFaction = 0;
 
 
   // Master object holding all terrains
@@ -122,7 +123,8 @@ function mapController($scope) {
     var defaultTerrainVariation = '0';
     var defaultUnit = 'none';
     var defaultUnitOrientation = 'right';
-    var defaultFaction = 'none'
+    var defaultFaction = 'none';
+    var defaultUnitFaction = 0;
 
     for (var x = 0; x < width; x++) {
       map[x] = new Array(height);
@@ -135,7 +137,7 @@ function mapController($scope) {
           'terrainVariant':defaultTerrainVariation,
           'unit':defaultUnit,
           'unitOrientation':'right',
-
+          'unitFaction':defaultUnitFaction
         }
       }
     }
@@ -177,6 +179,7 @@ function mapController($scope) {
     }
 
     if ($scope.selectedUnit) {
+      $scope.map[x][y].unitFaction = $scope.selectedFaction;
       if ($scope.map[x][y].unit == $scope.selectedUnit) {
         switch ($scope.map[x][y].unitOrientation) {
            case "right":
