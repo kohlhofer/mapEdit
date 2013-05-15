@@ -121,6 +121,7 @@ function mapController($scope) {
     var defaultTerrain = 'none';
     var defaultTerrainVariation = '0';
     var defaultUnit = 'none';
+    var defaultUnitOrientation = 'right';
     var defaultFaction = 'none'
 
     for (var x = 0; x < width; x++) {
@@ -132,7 +133,9 @@ function mapController($scope) {
           'terrain':defaultTerrain,
           'faction':defaultFaction,
           'terrainVariant':defaultTerrainVariation,
-          'unit':defaultUnit
+          'unit':defaultUnit,
+          'unitOrientation':'right',
+
         }
       }
     }
@@ -159,6 +162,7 @@ function mapController($scope) {
   // Depending on which tool is selected modifies either terrain or unit property of the map cell
 
   $scope.clickMapCell = function(x,y) {
+
     if ($scope.selectedTerrain) {
       if ($scope.map[x][y].terrain == $scope.selectedTerrain) {
         if ($scope.map[x][y].terrainVariant == $scope.terrains[$scope.selectedTerrain].art.length-1) {
@@ -171,8 +175,27 @@ function mapController($scope) {
         $scope.map[x][y].terrainVariant = 0;
       }
     }
+
     if ($scope.selectedUnit) {
-      $scope.map[x][y].unit = $scope.selectedUnit;
+      if ($scope.map[x][y].unit == $scope.selectedUnit) {
+        switch ($scope.map[x][y].unitOrientation) {
+           case "right":
+            $scope.map[x][y].unitOrientation = 'down';
+            break;
+           case "left":
+            $scope.map[x][y].unitOrientation = 'up';
+            break;
+           case "up":
+            $scope.map[x][y].unitOrientation = 'right';
+            break;
+           case "down":
+            $scope.map[x][y].unitOrientation = 'left';
+            break;
+        }
+      } else {
+        $scope.map[x][y].unit = $scope.selectedUnit;
+        $scope.map[x][y].unitOrientation = 'right';
+      }
     }
   }
 

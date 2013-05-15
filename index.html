@@ -66,7 +66,7 @@
                     <ul class="mapCells">
                       <li ng-repeat="cell in row" class="mapCell">
                         <img class="terrainAsset" src="{{terrains[cell.terrain].art[cell.terrainVariant]}}" ng-hide="cell.terrain == 'none'" />
-                        <img class="unitAsset" src="{{unitAssetPath}}/{{units[cell.unit].art.right}}" ng-hide="cell.unit == 'none'" />
+                        <img class="unitAsset" src="{{unitAssetPath}}/{{units[cell.unit].art[cell.unitOrientation]}}" ng-hide="cell.unit == 'none'" />
                         <a ng-click="clickMapCell(cell.x,cell.y);" class="mapCellLink"></a>
                       </li>
                     </ul>
