@@ -1,4 +1,4 @@
-function mapController($scope) {
+function mapController($scope, angularFire) {
 
   var terrainAssetPath = "img/terrains/"
   $scope.unitAssetPath = "img/units"
@@ -43,13 +43,13 @@ function mapController($scope) {
       label:'mountain'
     },
     factory:{
-      id:'factory', 
+      id:'factory',
       art:[terrainAssetPath+"factory.png"],
       terrainVariant:0,
       label:'factory'
     },
     forrest:{
-      id:'forrest', 
+      id:'forrest',
       art:[terrainAssetPath+"forrest_0.png"],
       terrainVariant:0,
       label:'forrest'
@@ -57,7 +57,7 @@ function mapController($scope) {
   }
 
   // Master object holding all units
-  // Orientations other than right are not supported, yet. 
+  // Orientations other than right are not supported, yet.
 
   $scope.units = {
     mediumTank:{
@@ -216,12 +216,48 @@ function mapController($scope) {
     $scope.map = angular.fromJson($scope.mapJson);
   }
 
+  var firebaseUrl = 'https://mapEdit.firebaseio.com';
+  var promise;
+
+  var firebaseRef = new Firebase(firebaseUrl);
+  var authClient = new FirebaseAuthClient(firebaseRef, function(error, user) {
+    if (error) {
+    } else if (user) {
+      $scope.user = user;
+      console.log("loading...")
+      var resourceUrl = firebaseUrl + '/maps/' + user.username;
+      promise = angularFire(resourceUrl, $scope, 'maps', []);
+      $scope.$apply();
+    }
+  });
+
+  $scope.login = function() {
+    authClient.login('github', {
+      rememberMe: true
+    });
+  }
+
+  $scope.logout = function() {
+    authClient.logout();
+    delete $scope.user;
+  }
+
+  $scope.saveCurrentMap = function() {
+    $scope.maps.push({name: $scope.mapName, map: angular.fromJson(angular.toJson($scope.map))});
+    delete $scope.mapName;
+  }
+
+  $scope.loadMap = function(map) {
+    $scope.map = angular.fromJson(angular.toJson(map.map));
+  }
+
+  $scope.deleteMap = function(index) {
+    $scope.maps.splice(index, 1);
+  }
+
   // called to init the map
 
   $scope.map = $scope.setUpMap();
-
-
-
 }
 
-mapController.$inject = ['$scope'];
+mapController.$inject = ['$scope', 'angularFire'];

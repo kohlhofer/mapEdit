@@ -40,7 +40,7 @@
                 </li>
                 <li ng-repeat="terrain in terrains" class="tool" ng-class="{selectedTool: terrain.id==selectedTerrain}">
                   <a ng-click="selectTerrain(terrain.id);" title="{{terrain.label}}">
-                    <img src="{{terrain.art[terrain.terrainVariant]}}" class="terrainAssetToolbar" />
+                    <img ng-src="{{terrain.art[terrain.terrainVariant]}}" class="terrainAssetToolbar" />
                   </a>
                 </li>
               </ul>
@@ -56,7 +56,7 @@
                 </li>
                 <li ng-repeat="unit in units" ng-class="{selectedTool: unit.id==selectedUnit}">
                   <a ng-click="selectUnit(unit.id);" title="{{unit.label}}">
-                    <img src="{{unitAssetPath}}/{{selectedFaction}}/{{unit.art.right}}" class="unitAssetToolbar" />
+                    <img ng-src="{{unitAssetPath}}/{{selectedFaction}}/{{unit.art.right}}" class="unitAssetToolbar" />
                   </a>
                 </li>
               </ul>
@@ -80,8 +80,8 @@
                   <li ng-repeat="row in map" class="mapRow">
                     <ul class="mapCells">
                       <li ng-repeat="cell in row" class="mapCell">
-                        <img class="terrainAsset" src="{{terrains[cell.terrain].art[cell.terrainVariant]}}" ng-hide="cell.terrain == 'none'" />
-                        <img class="unitAsset" src="{{unitAssetPath}}/{{cell.unitFaction}}/{{units[cell.unit].art[cell.unitOrientation]}}" ng-hide="cell.unit == 'none'" />
+                        <img class="terrainAsset" ng-src="{{terrains[cell.terrain].art[cell.terrainVariant]}}" ng-hide="cell.terrain == 'none'" />
+                        <img class="unitAsset" ng-src="{{unitAssetPath}}/{{cell.unitFaction}}/{{units[cell.unit].art[cell.unitOrientation]}}" ng-hide="cell.unit == 'none'" />
                         <a ng-click="clickMapCell(cell.x,cell.y);" class="mapCellLink"></a>
                       </li>
                     </ul>
@@ -97,6 +97,19 @@
                 <button class="btn" ng-click="mapToJson();"><i class="icon-arrow-down"></i> Map to JSON</button>
                 <button class="btn" ng-click="JsonToMap();"><i class="icon-arrow-up"></i>JSON to Map</button>
               </p>
+
+              <h2>Saved Maps:</h2>
+              <div ng-hide="user">
+                <button class="btn" ng-click="login()"><i class="icon-user"></i> Login with GitHub</button>
+              </div>
+              <div ng-show="user">
+                <input type="text" ng-model="mapName" placeholder="Map Name"> <button class="btn" ng-click="saveCurrentMap()"><i class="icon-arrow-down"></i> Save current map</button>
+                <ul>
+                  <li ng-repeat="map in maps"><a href="#" ng-click="loadMap(map)">{{map.name}}</a> - <a href="#" ng-click="deleteMap($index)">Delete map</a></li>
+                </ul>
+                <button class="btn" ng-click="logout()"><i class="icon-user"></i> Logout</button>
+              </div>
+
             </div>
           </div>
         </div>
@@ -107,6 +120,9 @@
         <script src="js/vendor/less.js"></script>
         <script src="js/vendor/bootstrap.min.js"></script>
 
+        <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+        <script src="https://cdn.firebase.com/v0/firebase-auth-client.js"></script>
+        <script src="js/vendor/angularFire.js"></script>
 
         <script src="js/controllers.js"></script>
 
