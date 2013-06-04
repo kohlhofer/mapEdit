@@ -27,15 +27,12 @@
 
         <div class="container">
           <div class="row">
-            <div class="span10 offset2">
-              <h1>Map Maker</h1>
-            </div>
             <div class="span1">
               <h3>Terrains</h3>
               <ul class="toolBar">
-                <li class="tool">
-                  <a ng-click="selectTerrain('none');" ng-class="{selectedTool: selectedTerrain=='none'}">
-                    Remove Terrain
+                <li class="tool" ng-class="{selectedTool: selectedTerrain=='none'}">
+                  <a ng-click="selectTerrain('none');">
+                    Delete
                   </a>
                 </li>
                 <li ng-repeat="terrain in terrains" class="tool" ng-class="{selectedTool: terrain.id==selectedTerrain}">
@@ -47,9 +44,9 @@
 
               <h3>Buildings</h3>
               <ul class="toolBar">
-                <li class="tool">
-                  <a ng-click="selectBuilding('none');" ng-class="{selectedTool: selectedBuilding=='none'}">
-                    Remove Building
+                <li class="tool" ng-class="{selectedTool: selectedBuilding=='none'}">
+                  <a ng-click="selectBuilding('none');" >
+                    Delete
                   </a>
                 </li>
                 <li ng-repeat="building in buildings" class="tool" ng-class="{selectedTool: building.id==selectedBuilding}">
@@ -62,12 +59,12 @@
             <div class="span1">
               <h3>Units</h3>
               <ul class="toolBar">
-                <li class="tool">
-                  <a ng-click="selectUnit('none');" ng-class="{selectedTool: selectedUnit=='none'}">
-                    Remove Unit
+                <li class="tool" ng-class="{selectedTool: selectedUnit=='none'}">
+                  <a ng-click="selectUnit('none');" >
+                    Delete
                   </a>
                 </li>
-                <li ng-repeat="unit in units" ng-class="{selectedTool: unit.id==selectedUnit}">
+                <li ng-repeat="unit in units" class="tool" ng-class="{selectedTool: selectedUnit==unit.id}">
                   <a ng-click="selectUnit(unit.id);" title="{{unit.label}}">
                     <img ng-src="{{unitAssetPath}}/{{selectedFaction}}/{{unit.art.right}}" class="unitAssetToolbar" />
                   </a>
@@ -75,13 +72,13 @@
               </ul>
               <h3>Factions</h3>
               <ul class="toolBar">
-                <li class="tool">
-                  <a ng-click="selectedFaction = 0;" ng-class="{selectedTool: selectedFaction==0}">
+                <li class="tool" ng-class="{selectedTool: selectedFaction==0}">
+                  <a ng-click="selectedFaction = 0;" >
                     Green
                   </a>
                 </li>
-                <li class="tool">
-                  <a ng-click="selectedFaction = 1;" ng-class="{selectedTool: selectedFaction==1}">
+                <li class="tool" ng-class="{selectedTool: selectedFaction==1}">
+                  <a ng-click="selectedFaction = 1;" >
                     Purple
                   </a>
                 </li>
@@ -102,15 +99,20 @@
                   </li>
                 </ul>
               </div>
-              <h2>JSON</h2>
-              <p>
-                <textarea class="span9" rows="15" ng-Model="mapJson">
-                </textarea>
-              </p>
-              <p>
-                <button class="btn" ng-click="mapToJson();"><i class="icon-arrow-down"></i> Map to JSON</button>
-                <button class="btn" ng-click="JsonToMap();"><i class="icon-arrow-up"></i>JSON to Map</button>
-              </p>
+              <p ng-hide="showJson"><a ng-init="showJson = false;" ng-click="showJson = true;">Show JSON</a></p>
+              <div ng-show="showJson">
+                <h2>JSON</h2>
+                <p>
+                  <textarea class="span9" rows="15" ng-Model="mapJson">
+                  </textarea>
+                </p>
+                <p>
+                  <button class="btn" ng-click="mapToJson();"><i class="icon-arrow-down"></i> Map to JSON</button>
+                  <button class="btn" ng-click="JsonToMap();"><i class="icon-arrow-up"></i>JSON to Map</button>
+                  <button class="btn" ng-click="showJson = false;">Hide JSON</button>
+                </p>
+              </div>
+
 
               <h2>Saved Maps:</h2>
               <div ng-hide="user">
