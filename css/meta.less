@@ -50,7 +50,7 @@
   z-index:30;
 }
 
-.unitAsset, .terrainAsset {
+.unitAsset, .terrainAsset, .buildingAsset {
   position: absolute;
   left:0px;
   height: @assetHeight;
@@ -82,6 +82,11 @@
 .unitAsset {
   z-index:20;
   bottom:-5px;
+}
+
+.buildingAsset {
+  z-index:15;
+  bottom:-8px;
 }
 
 .terrainAsset {

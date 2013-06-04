@@ -2,6 +2,7 @@ function mapController($scope, angularFire) {
 
   var terrainAssetPath = "img/terrains/"
   $scope.unitAssetPath = "img/units"
+  var buildingAssetPath = "img/buildings/"
 
   $scope.selectedUnit = false;
   $scope.selectedTerrain = 'plain';
@@ -42,17 +43,25 @@ function mapController($scope, angularFire) {
       terrainVariant:0,
       label:'mountain'
     },
-    factory:{
-      id:'factory',
-      art:[terrainAssetPath+"factory.png"],
-      terrainVariant:0,
-      label:'factory'
-    },
     forrest:{
       id:'forrest',
       art:[terrainAssetPath+"forrest_0.png"],
       terrainVariant:0,
       label:'forrest'
+    }
+  }
+
+
+  // Master object holding all buidlings
+  // terrainVariant refers to the art asset currently selected in the tool bar.
+
+  $scope.buildings = {
+    dropzone:{
+      id:'dropzone',
+      art:[buildingAssetPath+"dropzone_neutral.png",buildingAssetPath+"dropzone_faction_0.png",buildingAssetPath+"dropzone_faction_1.png"],
+      label:'dropzone',
+      ownable:true,
+      faction:false
     }
   }
 
@@ -119,12 +128,6 @@ function mapController($scope, angularFire) {
     var width = 16;
     var height = 12;
     var map = new Array(8);
-    var defaultTerrain = 'none';
-    var defaultTerrainVariation = '0';
-    var defaultUnit = 'none';
-    var defaultUnitOrientation = 'right';
-    var defaultFaction = 'none';
-    var defaultUnitFaction = 0;
 
     for (var x = 0; x < width; x++) {
       map[x] = new Array(height);
@@ -132,12 +135,14 @@ function mapController($scope, angularFire) {
         map[x][y] = {
           'x':x,
           'y':y,
-          'terrain':defaultTerrain,
-          'faction':defaultFaction,
-          'terrainVariant':defaultTerrainVariation,
-          'unit':defaultUnit,
+          'terrain':'none',
+          'building':'none',
+          'buildingFaction':'neutral',
+          'terrainVariant':'0',
+          'buildingVariant':'0',
+          'unit':'none',
           'unitOrientation':'right',
-          'unitFaction':defaultUnitFaction
+          'unitFaction':0
         }
       }
     }
@@ -149,8 +154,9 @@ function mapController($scope, angularFire) {
 
   $scope.selectTerrain = function(terrain) {
     $scope.selectedTerrain = terrain;
-    $scope.terrains[terrain].terrainVariant = 0;
+
     $scope.selectedUnit = false;
+    $scope.selectedBuilding = false;
   }
 
   // Called when the user selects a terrain in the toolbar
@@ -158,6 +164,15 @@ function mapController($scope, angularFire) {
   $scope.selectUnit = function(unit) {
     $scope.selectedUnit = unit;
     $scope.selectedTerrain = false;
+    $scope.selectedBuilding = false;
+  }
+
+   // Called when the user selects a terrain in the toolbar
+
+  $scope.selectBuilding = function(building) {
+    $scope.selectedBuilding = building;
+    $scope.selectedTerrain = false;
+    $scope.selectedUnit = false;
   }
 
   // Calles when the user clicks on a cell in the map
@@ -176,9 +191,7 @@ function mapController($scope, angularFire) {
         $scope.map[x][y].terrain = $scope.selectedTerrain;
         $scope.map[x][y].terrainVariant = 0;
       }
-    }
-
-    if ($scope.selectedUnit) {
+    } else if ($scope.selectedUnit) {
       $scope.map[x][y].unitFaction = $scope.selectedFaction;
       if ($scope.map[x][y].unit == $scope.selectedUnit) {
         switch ($scope.map[x][y].unitOrientation) {
@@ -199,6 +212,21 @@ function mapController($scope, angularFire) {
         $scope.map[x][y].unit = $scope.selectedUnit;
         $scope.map[x][y].unitOrientation = 'right';
       }
+    } else if ($scope.selectedBuilding) {
+      if ($scope.map[x][y].building == $scope.selectedBuilding) {
+        if ($scope.map[x][y].buildingVariant == $scope.buildings[$scope.selectedBuilding].art.length-1) {
+          $scope.map[x][y].buildingVariant = 0;
+          $scope.map[x][y].buildingFaction = 'neutral';
+        } else {
+          $scope.map[x][y].buildingVariant++;
+          $scope.map[x][y].buildingFaction = $scope.map[x][y].buildingVariant;
+        }
+      } else {
+        $scope.map[x][y].building = $scope.selectedBuilding;
+        $scope.map[x][y].buildingVariant = 0;
+        $scope.map[x][y].buildingFaction = 'neutral';
+      }
+      
     }
   }
 
