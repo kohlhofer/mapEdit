@@ -48,6 +48,12 @@ function mapController($scope, angularFire) {
       art:[terrainAssetPath+"forrest_0.png"],
       terrainVariant:0,
       label:'forrest'
+    },
+    road:{
+      id:'road',
+      art:[terrainAssetPath+"road_horizontal.png",terrainAssetPath+"road_vertical.png",terrainAssetPath+"road_cross.png"],
+      terrainVariant:0,
+      label:'road'
     }
   }
 
