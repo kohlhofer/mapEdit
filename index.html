@@ -29,7 +29,7 @@
           <div class="row">
             <div class="span1">
               <h3>Terrains</h3>
-              <ul class="toolBar">
+              <ul class="toolBar unselectable">
                 <li class="tool" ng-class="{selectedTool: selectedTerrain=='none'}">
                   <a ng-click="selectTerrain('none');">
                     Delete
@@ -43,7 +43,7 @@
               </ul>
 
               <h3>Buildings</h3>
-              <ul class="toolBar">
+              <ul class="toolBar unselectable">
                 <li class="tool" ng-class="{selectedTool: selectedBuilding=='none'}">
                   <a ng-click="selectBuilding('none');" >
                     Delete
@@ -58,7 +58,7 @@
             </div>
             <div class="span1">
               <h3>Units</h3>
-              <ul class="toolBar">
+              <ul class="toolBar unselectable">
                 <li class="tool" ng-class="{selectedTool: selectedUnit=='none'}">
                   <a ng-click="selectUnit('none');" >
                     Delete
@@ -71,7 +71,7 @@
                 </li>
               </ul>
               <h3>Factions</h3>
-              <ul class="toolBar">
+              <ul class="toolBar unselectable">
                 <li class="tool" ng-class="{selectedTool: selectedFaction==0}">
                   <a ng-click="selectedFaction = 0;" >
                     Green
@@ -85,7 +85,7 @@
               </ul>
             </div>
             <div class="span10">
-              <div id="map">
+              <div id="map" class="unselectable">
                 <ul class="mapRows">
                   <li ng-repeat="row in map" class="mapRow">
                     <ul class="mapCells">
