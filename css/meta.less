@@ -18,19 +18,18 @@ h2, h3 {
   border:1px solid #DDD;
   background-color: #EEE;
   padding-top:10px;
-  height:500px;
-  margin-bottom: 20px;
+  margin: 20px 0;
   ul {
     list-style: none;
     margin:0;
     padding:0;
+    white-space:nowrap;
   }
 }
 
 .mapRows {
-  width: @mapCellWidth * 16;
+  width: auto;
   padding:10px;
-  background:#EEE url('../img/terrains/base.png') repeat 0px 0px;
 }
 
 .mapRow {
@@ -44,6 +43,7 @@ h2, h3 {
   position:relative;
   overflow:visible;
   text-align: center;
+  background:#EEE url('../img/terrains/base.png') no-repeat 0px 0px;
   //border:1px solid #F00;
 }
 

@@ -87,9 +87,9 @@
             <div class="span10">
               <div id="map" class="unselectable">
                 <ul class="mapRows">
-                  <li ng-repeat="row in map" class="mapRow">
+                  <li ng-repeat="collumn in map" class="mapRow">
                     <ul class="mapCells">
-                      <li ng-repeat="cell in row" class="mapCell">
+                      <li ng-repeat="cell in collumn" class="mapCell">
                         <img class="terrainAsset" ng-src="{{terrains[cell.terrain].art[cell.terrainVariant]}}" ng-hide="cell.terrain == 'none'" />
                          <img class="buildingAsset" ng-src="{{buildings[cell.building].art[cell.buildingVariant]}}" ng-hide="cell.building == 'none'" />
                         <img class="unitAsset" ng-src="{{unitAssetPath}}/{{cell.unitFaction}}/{{units[cell.unit].art[cell.unitOrientation]}}" ng-hide="cell.unit == 'none'" />
@@ -99,6 +99,7 @@
                   </li>
                 </ul>
               </div>
+              <p>Dimensions: <strong>{{map.length}}</strong> <a ng-click="addCollumn();" class="btn btn-mini">+</a><a ng-click="deletedCollumn();" class="btn btn-mini">-</a> by <strong>{{map[0].length}}</strong> <a ng-click="addRow();" class="btn btn-mini">+</a><a ng-click="deleteRow();" class="btn btn-mini">-</a></p>
               <p ng-hide="showJson"><a ng-init="showJson = false;" ng-click="showJson = true;">Show JSON</a></p>
               <div ng-show="showJson">
                 <h2>JSON</h2>

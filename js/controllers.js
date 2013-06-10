@@ -131,9 +131,9 @@ function mapController($scope, angularFire) {
   // Dimension can currently not be edited after the initalisation.
 
   $scope.setUpMap = function() {
-    var width = 16;
-    var height = 12;
-    var map = new Array(8);
+    var width = 5;
+    var height = 5;
+    var map = new Array(width);
 
     for (var x = 0; x < width; x++) {
       map[x] = new Array(height);
@@ -228,6 +228,50 @@ function mapController($scope, angularFire) {
         $scope.map[x][y].buildingFaction = 'neutral';
       }
       
+    }
+  }
+
+
+  $scope.addCollumn = function() {
+    var height = $scope.map[0].length;
+    var collumnNumber = $scope.map.length;
+    var newCollumn = new Array(height);
+    for (var y = 0; y < height; y++) {
+      newCollumn[y] = {
+        'x':collumnNumber,
+        'y':y,
+        'terrain':'none',
+        'building':'none',
+        'unit':'none'
+      }
+    }
+    $scope.map.push(newCollumn);
+  }
+
+  $scope.deletedCollumn = function() {
+    var width = $scope.map.length-1;
+    $scope.map.splice(width, 1);
+  }
+
+  $scope.addRow = function() {
+    var height = $scope.map[0].length;
+    var width = $scope.map.length;
+    for (var x = 0; x < width; x++) {
+      $scope.map[x].push({
+        'x':x,
+        'y':height,
+        'terrain':'none',
+        'building':'none',
+        'unit':'none'
+      })
+    }
+  }
+
+  $scope.deleteRow = function() {
+    var height = $scope.map[0].length;
+    var width = $scope.map.length;
+    for (var x = 0; x < width; x++) {
+      $scope.map[x].splice(height-1, 1);
     }
   }
 
