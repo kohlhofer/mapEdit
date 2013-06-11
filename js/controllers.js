@@ -39,7 +39,7 @@ function mapController($scope, angularFire) {
     },
     mountain:{
       id:'mountain',
-      art:[terrainAssetPath+"mountain_0.png"],
+      art:[terrainAssetPath+"mountain_0.png", terrainAssetPath+"mountain_1.png", terrainAssetPath+"mountain_2.png"],
       terrainVariant:0,
       label:'mountain'
     },
