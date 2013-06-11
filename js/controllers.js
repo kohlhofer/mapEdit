@@ -246,13 +246,11 @@ function mapController($scope, angularFire) {
       }
     }
     $scope.map.data.push(newCollumn);
-    $scope.updateMapSize();
   }
 
   $scope.deletedCollumn = function() {
     var width = $scope.map.data.length-1;
     $scope.map.data.splice(width, 1);
-    $scope.updateMapSize();
   }
 
   $scope.addRow = function() {
@@ -267,7 +265,6 @@ function mapController($scope, angularFire) {
         'unit':'none'
       })
     }
-    $scope.updateMapSize();
   }
 
   $scope.deleteRow = function() {
@@ -276,14 +273,7 @@ function mapController($scope, angularFire) {
     for (var x = 0; x < width; x++) {
       $scope.map.data[x].splice(height-1, 1);
     }
-    $scope.updateMapSize();
   }
-
-  $scope.updateMapSize = function() {
-    $scope.map.width = $scope.map.data.length;
-    $scope.map.height = $scope.map.data[0].length;
-  }
-
   // Converts the map data to JSON.
   // JSON can be copy and pasted through textarea. Triggered thorugh Button in the UI.
 
@@ -338,8 +328,7 @@ function mapController($scope, angularFire) {
   }
 
   // init the map
-  $scope.map = {name:"untitled", description:"", width:0, height:0, data:$scope.setUpMap()};
-  $scope.updateMapSize();
+  $scope.map = {name:"untitled", description:"", data:$scope.setUpMap()};
 }
 
 mapController.$inject = ['$scope', 'angularFire'];

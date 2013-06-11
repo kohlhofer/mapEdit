@@ -31,7 +31,7 @@
               <div class="unselectable box">Title: <input ng-model="map.name" /></div>
             </div>
             <div class="span5">
-                <div class="unselectable box">Dimensions: <span><strong>{{map.width}}</strong> <a ng-click="addCollumn();" class="btn btn-mini btn-success">+</a><a ng-click="deletedCollumn();" class="btn btn-mini btn-danger">-</a></span> by <span><strong>{{map.height}}</strong> <a ng-click="addRow();" class="btn btn-mini btn-success">+</a><a ng-click="deleteRow();" class="btn btn-mini btn-danger">-</a></span></div>
+                <div class="unselectable box">Dimensions: <span><strong>{{map.data.length}}</strong> <a ng-click="addCollumn();" class="btn btn-mini btn-success">+</a><a ng-click="deletedCollumn();" class="btn btn-mini btn-danger">-</a></span> by <span><strong>{{map.data[0].length}}</strong> <a ng-click="addRow();" class="btn btn-mini btn-success">+</a><a ng-click="deleteRow();" class="btn btn-mini btn-danger">-</a></span></div>
             </div>
           </div>
           <div class="row">
