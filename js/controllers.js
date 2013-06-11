@@ -182,50 +182,50 @@ function mapController($scope, angularFire) {
   $scope.clickMapCell = function(x,y) {
 
     if ($scope.selectedTerrain) {
-      if ($scope.map[x][y].terrain == $scope.selectedTerrain) {
-        if ($scope.map[x][y].terrainVariant == $scope.terrains[$scope.selectedTerrain].art.length-1) {
-          $scope.map[x][y].terrainVariant = 0;
+      if ($scope.map.data[x][y].terrain == $scope.selectedTerrain) {
+        if ($scope.map.data[x][y].terrainVariant == $scope.terrains[$scope.selectedTerrain].art.length-1) {
+          $scope.map.data[x][y].terrainVariant = 0;
         } else {
-          $scope.map[x][y].terrainVariant++;
+          $scope.map.data[x][y].terrainVariant++;
         }
       } else {
-        $scope.map[x][y].terrain = $scope.selectedTerrain;
-        $scope.map[x][y].terrainVariant = 0;
+        $scope.map.data[x][y].terrain = $scope.selectedTerrain;
+        $scope.map.data[x][y].terrainVariant = 0;
       }
     } else if ($scope.selectedUnit) {
-      $scope.map[x][y].unitFaction = $scope.selectedFaction;
-      if ($scope.map[x][y].unit == $scope.selectedUnit) {
-        switch ($scope.map[x][y].unitOrientation) {
+      $scope.map.data[x][y].unitFaction = $scope.selectedFaction;
+      if ($scope.map.data[x][y].unit == $scope.selectedUnit) {
+        switch ($scope.map.data[x][y].unitOrientation) {
            case "right":
-            $scope.map[x][y].unitOrientation = 'down';
+            $scope.map.data[x][y].unitOrientation = 'down';
             break;
            case "left":
-            $scope.map[x][y].unitOrientation = 'up';
+            $scope.map.data[x][y].unitOrientation = 'up';
             break;
            case "up":
-            $scope.map[x][y].unitOrientation = 'right';
+            $scope.map.data[x][y].unitOrientation = 'right';
             break;
            case "down":
-            $scope.map[x][y].unitOrientation = 'left';
+            $scope.map.data[x][y].unitOrientation = 'left';
             break;
         }
       } else {
-        $scope.map[x][y].unit = $scope.selectedUnit;
-        $scope.map[x][y].unitOrientation = 'right';
+        $scope.map.data[x][y].unit = $scope.selectedUnit;
+        $scope.map.data[x][y].unitOrientation = 'right';
       }
     } else if ($scope.selectedBuilding) {
-      if ($scope.map[x][y].building == $scope.selectedBuilding) {
-        if ($scope.map[x][y].buildingVariant == $scope.buildings[$scope.selectedBuilding].art.length-1) {
-          $scope.map[x][y].buildingVariant = 0;
-          $scope.map[x][y].buildingFaction = 'neutral';
+      if ($scope.map.data[x][y].building == $scope.selectedBuilding) {
+        if ($scope.map.data[x][y].buildingVariant == $scope.buildings[$scope.selectedBuilding].art.length-1) {
+          $scope.map.data[x][y].buildingVariant = 0;
+          $scope.map.data[x][y].buildingFaction = 'neutral';
         } else {
-          $scope.map[x][y].buildingVariant++;
-          $scope.map[x][y].buildingFaction = $scope.map[x][y].buildingVariant;
+          $scope.map.data[x][y].buildingVariant++;
+          $scope.map.data[x][y].buildingFaction = $scope.map.data[x][y].buildingVariant;
         }
       } else {
-        $scope.map[x][y].building = $scope.selectedBuilding;
-        $scope.map[x][y].buildingVariant = 0;
-        $scope.map[x][y].buildingFaction = 'neutral';
+        $scope.map.data[x][y].building = $scope.selectedBuilding;
+        $scope.map.data[x][y].buildingVariant = 0;
+        $scope.map.data[x][y].buildingFaction = 'neutral';
       }
       
     }
@@ -233,8 +233,8 @@ function mapController($scope, angularFire) {
 
 
   $scope.addCollumn = function() {
-    var height = $scope.map[0].length;
-    var collumnNumber = $scope.map.length;
+    var height = $scope.map.data[0].length;
+    var collumnNumber = $scope.map.data.length;
     var newCollumn = new Array(height);
     for (var y = 0; y < height; y++) {
       newCollumn[y] = {
@@ -245,19 +245,21 @@ function mapController($scope, angularFire) {
         'unit':'none'
       }
     }
-    $scope.map.push(newCollumn);
+    $scope.map.data.push(newCollumn);
+    $scope.updateMapSize();
   }
 
   $scope.deletedCollumn = function() {
-    var width = $scope.map.length-1;
-    $scope.map.splice(width, 1);
+    var width = $scope.map.data.length-1;
+    $scope.map.data.splice(width, 1);
+    $scope.updateMapSize();
   }
 
   $scope.addRow = function() {
-    var height = $scope.map[0].length;
-    var width = $scope.map.length;
+    var height = $scope.map.data[0].length;
+    var width = $scope.map.data.length;
     for (var x = 0; x < width; x++) {
-      $scope.map[x].push({
+      $scope.map.data[x].push({
         'x':x,
         'y':height,
         'terrain':'none',
@@ -265,14 +267,21 @@ function mapController($scope, angularFire) {
         'unit':'none'
       })
     }
+    $scope.updateMapSize();
   }
 
   $scope.deleteRow = function() {
-    var height = $scope.map[0].length;
-    var width = $scope.map.length;
+    var height = $scope.map.data[0].length;
+    var width = $scope.map.data.length;
     for (var x = 0; x < width; x++) {
-      $scope.map[x].splice(height-1, 1);
+      $scope.map.data[x].splice(height-1, 1);
     }
+    $scope.updateMapSize();
+  }
+
+  $scope.updateMapSize = function() {
+    $scope.map.width = $scope.map.data.length;
+    $scope.map.height = $scope.map.data[0].length;
   }
 
   // Converts the map data to JSON.
@@ -328,9 +337,9 @@ function mapController($scope, angularFire) {
     $scope.maps.splice(index, 1);
   }
 
-  // called to init the map
-
-  $scope.map = $scope.setUpMap();
+  // init the map
+  $scope.map = {name:"untitled", description:"", width:0, height:0, data:$scope.setUpMap()};
+  $scope.updateMapSize();
 }
 
 mapController.$inject = ['$scope', 'angularFire'];

@@ -27,8 +27,11 @@
 
         <div class="container">
           <div class="row">
-            <div class="span10 offset1">
-              <div id="dimensions" class="box unselectable">Map Dimensions: <span><strong>{{map.length}}</strong> <a ng-click="addCollumn();" class="btn btn-mini btn-success">+</a><a ng-click="deletedCollumn();" class="btn btn-mini btn-danger">-</a></span> by <span><strong>{{map[0].length}}</strong> <a ng-click="addRow();" class="btn btn-mini btn-success">+</a><a ng-click="deleteRow();" class="btn btn-mini btn-danger">-</a></span></div>
+            <div class="span5 offset1">
+              <div class="unselectable box">Title: <input ng-model="map.name" /></div>
+            </div>
+            <div class="span5">
+                <div class="unselectable box">Dimensions: <span><strong>{{map.width}}</strong> <a ng-click="addCollumn();" class="btn btn-mini btn-success">+</a><a ng-click="deletedCollumn();" class="btn btn-mini btn-danger">-</a></span> by <span><strong>{{map.height}}</strong> <a ng-click="addRow();" class="btn btn-mini btn-success">+</a><a ng-click="deleteRow();" class="btn btn-mini btn-danger">-</a></span></div>
             </div>
           </div>
           <div class="row">
@@ -102,7 +105,7 @@
             <div class="span10">
               <div id="map" class="unselectable">
                 <ul class="mapRows">
-                  <li ng-repeat="collumn in map" class="mapRow">
+                  <li ng-repeat="collumn in map.data" class="mapRow">
                     <ul class="mapCells">
                       <li ng-repeat="cell in collumn" class="mapCell">
                         <img class="terrainAsset" ng-src="{{terrains[cell.terrain].art[cell.terrainVariant]}}" ng-hide="cell.terrain == 'none'" />
