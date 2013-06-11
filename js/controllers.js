@@ -51,7 +51,7 @@ function mapController($scope, angularFire) {
     },
     road:{
       id:'road',
-      art:[terrainAssetPath+"road_horizontal.png",terrainAssetPath+"road_vertical.png",terrainAssetPath+"road_cross.png"],
+      art:[terrainAssetPath+"road_horizontal.png",terrainAssetPath+"road_vertical.png",terrainAssetPath+"road_left_down.png",terrainAssetPath+"road_left_up.png",terrainAssetPath+"road_right_up.png",terrainAssetPath+"road_right_down.png",terrainAssetPath+"road_cross.png"],
       terrainVariant:0,
       label:'road'
     }
