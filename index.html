@@ -27,63 +27,45 @@
 
         <div class="container">
           <div class="row">
+            <div class="span10 offset1">
+              <div id="dimensions" class="box unselectable">Map Dimensions: <span><strong>{{map.length}}</strong> <a ng-click="addCollumn();" class="btn btn-mini btn-success">+</a><a ng-click="deletedCollumn();" class="btn btn-mini btn-danger">-</a></span> by <span><strong>{{map[0].length}}</strong> <a ng-click="addRow();" class="btn btn-mini btn-success">+</a><a ng-click="deleteRow();" class="btn btn-mini btn-danger">-</a></span></div>
+            </div>
+          </div>
+          <div class="row">
             <div class="span1">
-              <h3>Terrains</h3>
-              <ul class="toolBar unselectable">
-                <li class="tool" ng-class="{selectedTool: selectedTerrain=='none'}">
-                  <a ng-click="selectTerrain('none');">
-                    Delete
-                  </a>
-                </li>
-                <li ng-repeat="terrain in terrains" class="tool" ng-class="{selectedTool: terrain.id==selectedTerrain}">
-                  <a ng-click="selectTerrain(terrain.id);" title="{{terrain.label}}">
-                    <img ng-src="{{terrain.art[0]}}" class="terrainAssetToolbar" />
-                  </a>
-                </li>
-              </ul>
+              <div class="box">
+                <h3>Terrains</h3>
+                <ul class="toolBar unselectable">
+                  <li class="tool" ng-class="{selectedTool: selectedTerrain=='none'}">
+                    <a ng-click="selectTerrain('none');">
+                      Delete
+                    </a>
+                  </li>
+                  <li ng-repeat="terrain in terrains" class="tool" ng-class="{selectedTool: terrain.id==selectedTerrain}">
+                    <a ng-click="selectTerrain(terrain.id);" title="{{terrain.label}}">
+                      <img ng-src="{{terrain.art[0]}}" class="terrainAssetToolbar" />
+                    </a>
+                  </li>
+                </ul>
+              </div>
 
-              <h3>Buildings</h3>
-              <ul class="toolBar unselectable">
-                <li class="tool" ng-class="{selectedTool: selectedBuilding=='none'}">
-                  <a ng-click="selectBuilding('none');" >
-                    Delete
-                  </a>
-                </li>
-                <li ng-repeat="building in buildings" class="tool" ng-class="{selectedTool: building.id==selectedBuilding}">
-                  <a ng-click="selectBuilding(building.id);" title="{{building.label}}">
-                    <img ng-src="{{building.art[0]}}" class="terrainAssetToolbar" />
-                  </a>
-                </li>
-              </ul>
+              <div class="box">
+                <h3>Buildings</h3>
+                <ul class="toolBar unselectable">
+                  <li class="tool" ng-class="{selectedTool: selectedBuilding=='none'}">
+                    <a ng-click="selectBuilding('none');" >
+                      Delete
+                    </a>
+                  </li>
+                  <li ng-repeat="building in buildings" class="tool" ng-class="{selectedTool: building.id==selectedBuilding}">
+                    <a ng-click="selectBuilding(building.id);" title="{{building.label}}">
+                      <img ng-src="{{building.art[0]}}" class="terrainAssetToolbar" />
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div class="span1">
-              <h3>Units</h3>
-              <ul class="toolBar unselectable">
-                <li class="tool" ng-class="{selectedTool: selectedUnit=='none'}">
-                  <a ng-click="selectUnit('none');" >
-                    Delete
-                  </a>
-                </li>
-                <li ng-repeat="unit in units" class="tool" ng-class="{selectedTool: selectedUnit==unit.id}">
-                  <a ng-click="selectUnit(unit.id);" title="{{unit.label}}">
-                    <img ng-src="{{unitAssetPath}}/{{selectedFaction}}/{{unit.art.right}}" class="unitAssetToolbar" />
-                  </a>
-                </li>
-              </ul>
-              <h3>Factions</h3>
-              <ul class="toolBar unselectable">
-                <li class="tool" ng-class="{selectedTool: selectedFaction==0}">
-                  <a ng-click="selectedFaction = 0;" >
-                    Green
-                  </a>
-                </li>
-                <li class="tool" ng-class="{selectedTool: selectedFaction==1}">
-                  <a ng-click="selectedFaction = 1;" >
-                    Purple
-                  </a>
-                </li>
-              </ul>
-            </div>
+            
             <div class="span10">
               <div id="map" class="unselectable">
                 <ul class="mapRows">
@@ -99,9 +81,46 @@
                   </li>
                 </ul>
               </div>
-              <p>Dimensions: <strong>{{map.length}}</strong> <a ng-click="addCollumn();" class="btn btn-mini">+</a><a ng-click="deletedCollumn();" class="btn btn-mini">-</a> by <strong>{{map[0].length}}</strong> <a ng-click="addRow();" class="btn btn-mini">+</a><a ng-click="deleteRow();" class="btn btn-mini">-</a></p>
-              <p ng-hide="showJson"><a ng-init="showJson = false;" ng-click="showJson = true;">Show JSON</a></p>
-              <div ng-show="showJson">
+            </div>
+
+            <div class="span1">
+              <div class="box">
+                <h3>Factions</h3>
+                <ul class="toolBar unselectable">
+                  <li class="tool" ng-class="{selectedTool: selectedFaction==0}">
+                    <a ng-click="selectedFaction = 0;" >
+                      Green
+                    </a>
+                  </li>
+                  <li class="tool" ng-class="{selectedTool: selectedFaction==1}">
+                    <a ng-click="selectedFaction = 1;" >
+                      Purple
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="box">
+                <h3>Units</h3>
+                <ul class="toolBar unselectable">
+                  <li class="tool" ng-class="{selectedTool: selectedUnit=='none'}">
+                    <a ng-click="selectUnit('none');" >
+                      Delete
+                    </a>
+                  </li>
+                  <li ng-repeat="unit in units" class="tool" ng-class="{selectedTool: selectedUnit==unit.id}">
+                    <a ng-click="selectUnit(unit.id);" title="{{unit.label}}">
+                      <img ng-src="{{unitAssetPath}}/{{selectedFaction}}/{{unit.art.right}}" class="unitAssetToolbar" />
+                    </a>
+                  </li>
+                </ul>
+              </div>              
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="span10 offset1">
+              <div ng-hide="showJson" class="box"><a ng-init="showJson = false;" ng-click="showJson = true;">Show JSON</a></div>
+              <div ng-show="showJson" class="box">
                 <h2>JSON</h2>
                 <p>
                   <textarea class="span9" rows="15" ng-Model="mapJson">
@@ -126,7 +145,6 @@
                 </ul>
                 <button class="btn" ng-click="logout()"><i class="icon-user"></i> Logout</button>
               </div>
-
             </div>
           </div>
         </div>
