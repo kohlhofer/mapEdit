@@ -15,7 +15,7 @@ function mapController($scope, angularFire) {
   $scope.terrains = {
     dessert:{
       id:'dessert',
-      art:[terrainAssetPath+"dessert_0.png", terrainAssetPath+"dessert_1.png", terrainAssetPath+"dessert_2.png"],
+      art:[terrainAssetPath+"dessert_0.png"],
       terrainVariant:0,
       label:'dessert'
     },
