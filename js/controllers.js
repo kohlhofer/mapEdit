@@ -15,13 +15,13 @@ function mapController($scope, angularFire) {
   $scope.terrains = {
     dessert:{
       id:'dessert',
-      art:[terrainAssetPath+"dessert_0.png"],
+      art:[terrainAssetPath+"dessert_0.png", terrainAssetPath+"dessert_1.png", terrainAssetPath+"dessert_2.png"],
       terrainVariant:0,
       label:'dessert'
     },
     plain:{
       id:'plain',
-      art:[terrainAssetPath+"plain_0.png"],
+      art:[terrainAssetPath+"plain_0.png", terrainAssetPath+"plain_1.png"],
       terrainVariant:0,
       label:'plain'
     },
@@ -45,9 +45,15 @@ function mapController($scope, angularFire) {
     },
     forrest:{
       id:'forrest',
-      art:[terrainAssetPath+"forrest_0.png"],
+      art:[terrainAssetPath+"forrest_0.png", terrainAssetPath+"forrest_1.png", terrainAssetPath+"forrest_2.png"],
       terrainVariant:0,
       label:'forrest'
+    },
+    pineForrest:{
+      id:'pineForrest',
+      art:[terrainAssetPath+"needle_0.png", terrainAssetPath+"needle_1.png", terrainAssetPath+"needle_2.png"],
+      terrainVariant:0,
+      label:'pine forrest'
     },
     road:{
       id:'road',
