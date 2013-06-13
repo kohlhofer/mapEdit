@@ -25,134 +25,143 @@
 
         <!-- Add your site or application content here -->
 
-        <div class="container">
-          <div class="row">
-            <div class="span5 offset1">
-              <div class="unselectable box">Title: <input ng-model="map.name" /></div>
+        <div class="topBar unselectable">
+          <span>
+            Title: <input ng-model="map.name" />
+          </span>
+          <span>
+            Dimensions: <strong>{{map.data.length}}</strong> <a ng-click="addCollumn();" class="btn btn-mini btn-success">+</a><a ng-click="deletedCollumn();" class="btn btn-mini btn-danger">-</a> by <strong>{{map.data[0].length}}</strong> <a ng-click="addRow();" class="btn btn-mini btn-success">+</a><a ng-click="deleteRow();" class="btn btn-mini btn-danger">-</a>
+          </span>
+          <span>
+            <a href="#loadSaveModal" role="button" class="btn btn-small" data-toggle="modal">Load &amp; Save</a>
+            <a href="#jsonModal" role="button" class="btn btn-small" data-toggle="modal">JSON</a>
+          </span>
+        
+        </div>
+
+        <div class="toolBox">
+          <div class="box">
+            <h3>Terrains</h3>
+            <ul class="toolBar unselectable">
+              <li class="tool" ng-class="{selectedTool: selectedTerrain=='none'}">
+                <a ng-click="selectTerrain('none');">
+                  <i class="icon-remove icon-white"></i>
+                </a>
+              </li>
+              <li ng-repeat="terrain in terrains" class="tool" ng-class="{selectedTool: terrain.id==selectedTerrain}">
+                <a ng-click="selectTerrain(terrain.id);" title="{{terrain.label}}">
+                  <img ng-src="{{terrain.art[0]}}" class="terrainAssetToolbar" />
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <h3>Buildings</h3>
+            <ul class="toolBar unselectable">
+              <li class="tool" ng-class="{selectedTool: selectedBuilding=='none'}">
+                <a ng-click="selectBuilding('none');" >
+                  <i class="icon-remove icon-white"></i>
+                </a>
+              </li>
+              <li ng-repeat="building in buildings" class="tool" ng-class="{selectedTool: building.id==selectedBuilding}">
+                <a ng-click="selectBuilding(building.id);" title="{{building.label}}">
+                  <img ng-src="{{building.art[0]}}" class="terrainAssetToolbar" />
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <h3>Factions</h3>
+            <ul class="toolBar unselectable">
+              <li class="tool" ng-class="{selectedTool: selectedFaction==0}">
+                <a ng-click="selectedFaction = 0;" class="playera">
+                  A
+                </a>
+              </li>
+              <li class="tool" ng-class="{selectedTool: selectedFaction==1}">
+                <a ng-click="selectedFaction = 1;" class="playerb">
+                  B
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="box">
+            <h3>Units</h3>
+            <ul class="toolBar unselectable">
+              <li class="tool" ng-class="{selectedTool: selectedUnit=='none'}">
+                <a ng-click="selectUnit('none');" >
+                  <i class="icon-remove icon-white"></i>
+                </a>
+              </li>
+              <li ng-repeat="unit in units" class="tool" ng-class="{selectedTool: selectedUnit==unit.id}">
+                <a ng-click="selectUnit(unit.id);" title="{{unit.label}}">
+                  <img ng-src="{{unitAssetPath}}/{{selectedFaction}}/{{unit.art.right}}" class="unitAssetToolbar" />
+                </a>
+              </li>
+            </ul>
+          </div>              
+        </div>
+        
+        <div id="map" class="unselectable">
+          <ul class="mapRows">
+            <li ng-repeat="collumn in map.data" class="mapRow">
+              <ul class="mapCells">
+                <li ng-repeat="cell in collumn" class="mapCell">
+                  <img class="terrainAsset" ng-src="{{terrains[cell.terrain].art[cell.terrainVariant]}}" ng-hide="cell.terrain == 'none'" />
+                   <img class="buildingAsset" ng-src="{{buildings[cell.building].art[cell.buildingVariant]}}" ng-hide="cell.building == 'none'" />
+                  <img class="unitAsset" ng-src="{{unitAssetPath}}/{{cell.unitFaction}}/{{units[cell.unit].art[cell.unitOrientation]}}" ng-hide="cell.unit == 'none'" />
+                  <a ng-click="clickMapCell(cell.x,cell.y);" class="mapCellLink"></a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+
+        <!-- Modal -->
+        <div id="loadSaveModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Load &amp; Save</h3>
+          </div>
+          <div class="modal-body">
+            <div ng-hide="user">
+              <button class="btn" ng-click="login()"><i class="icon-user"></i> Login with GitHub</button>
             </div>
-            <div class="span5">
-                <div class="unselectable box">Dimensions: <span><strong>{{map.data.length}}</strong> <a ng-click="addCollumn();" class="btn btn-mini btn-success">+</a><a ng-click="deletedCollumn();" class="btn btn-mini btn-danger">-</a></span> by <span><strong>{{map.data[0].length}}</strong> <a ng-click="addRow();" class="btn btn-mini btn-success">+</a><a ng-click="deleteRow();" class="btn btn-mini btn-danger">-</a></span></div>
+            <div ng-show="user">
+              <input type="text" ng-model="mapName" placeholder="Map Name"> <button class="btn" ng-click="saveCurrentMap()"><i class="icon-arrow-down"></i> Save current map</button>
+              <ul>
+                <li ng-repeat="map in maps"><a href="#" ng-click="loadMap(map)">{{map.name}}</a> - <a href="#" ng-click="deleteMap($index)">Delete map</a></li>
+              </ul>
+              <button class="btn" ng-click="logout()"><i class="icon-user"></i> Logout</button>
             </div>
           </div>
-          <div class="row">
-            <div class="span1">
-              <div class="box">
-                <h3>Terrains</h3>
-                <ul class="toolBar unselectable">
-                  <li class="tool" ng-class="{selectedTool: selectedTerrain=='none'}">
-                    <a ng-click="selectTerrain('none');">
-                      Remove
-                    </a>
-                  </li>
-                  <li ng-repeat="terrain in terrains" class="tool" ng-class="{selectedTool: terrain.id==selectedTerrain}">
-                    <a ng-click="selectTerrain(terrain.id);" title="{{terrain.label}}">
-                      <img ng-src="{{terrain.art[0]}}" class="terrainAssetToolbar" />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="box">
-                <h3>Buildings</h3>
-                <ul class="toolBar unselectable">
-                  <li class="tool" ng-class="{selectedTool: selectedBuilding=='none'}">
-                    <a ng-click="selectBuilding('none');" >
-                      Remove
-                    </a>
-                  </li>
-                  <li ng-repeat="building in buildings" class="tool" ng-class="{selectedTool: building.id==selectedBuilding}">
-                    <a ng-click="selectBuilding(building.id);" title="{{building.label}}">
-                      <img ng-src="{{building.art[0]}}" class="terrainAssetToolbar" />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="span1 pull-right">
-              <div class="box">
-                <h3>Factions</h3>
-                <ul class="toolBar unselectable">
-                  <li class="tool" ng-class="{selectedTool: selectedFaction==0}">
-                    <a ng-click="selectedFaction = 0;" >
-                      Green
-                    </a>
-                  </li>
-                  <li class="tool" ng-class="{selectedTool: selectedFaction==1}">
-                    <a ng-click="selectedFaction = 1;" >
-                      Purple
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div class="box">
-                <h3>Units</h3>
-                <ul class="toolBar unselectable">
-                  <li class="tool" ng-class="{selectedTool: selectedUnit=='none'}">
-                    <a ng-click="selectUnit('none');" >
-                      Remove
-                    </a>
-                  </li>
-                  <li ng-repeat="unit in units" class="tool" ng-class="{selectedTool: selectedUnit==unit.id}">
-                    <a ng-click="selectUnit(unit.id);" title="{{unit.label}}">
-                      <img ng-src="{{unitAssetPath}}/{{selectedFaction}}/{{unit.art.right}}" class="unitAssetToolbar" />
-                    </a>
-                  </li>
-                </ul>
-              </div>              
-            </div>
-            
-            <div class="span10">
-              <div id="map" class="unselectable">
-                <ul class="mapRows">
-                  <li ng-repeat="collumn in map.data" class="mapRow">
-                    <ul class="mapCells">
-                      <li ng-repeat="cell in collumn" class="mapCell">
-                        <img class="terrainAsset" ng-src="{{terrains[cell.terrain].art[cell.terrainVariant]}}" ng-hide="cell.terrain == 'none'" />
-                         <img class="buildingAsset" ng-src="{{buildings[cell.building].art[cell.buildingVariant]}}" ng-hide="cell.building == 'none'" />
-                        <img class="unitAsset" ng-src="{{unitAssetPath}}/{{cell.unitFaction}}/{{units[cell.unit].art[cell.unitOrientation]}}" ng-hide="cell.unit == 'none'" />
-                        <a ng-click="clickMapCell(cell.x,cell.y);" class="mapCellLink"></a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            
-          </div>
-          <div class="row">
-
-            <div class="span10 offset1">
-              <div ng-hide="showJson" class="box"><a ng-init="showJson = false;" ng-click="showJson = true;">Show JSON</a></div>
-              <div ng-show="showJson" class="box">
-                <h2>JSON</h2>
-                <p>
-                  <textarea class="span9" rows="15" ng-Model="mapJson">
-                  </textarea>
-                </p>
-                <p>
-                  <button class="btn" ng-click="mapToJson();"><i class="icon-arrow-down"></i> Map to JSON</button>
-                  <button class="btn" ng-click="JsonToMap();"><i class="icon-arrow-up"></i>JSON to Map</button>
-                  <button class="btn" ng-click="showJson = false;">Hide JSON</button>
-                </p>
-              </div>
-
-
-              <h2>Saved Maps:</h2>
-              <div ng-hide="user">
-                <button class="btn" ng-click="login()"><i class="icon-user"></i> Login with GitHub</button>
-              </div>
-              <div ng-show="user">
-                <input type="text" ng-model="mapName" placeholder="Map Name"> <button class="btn" ng-click="saveCurrentMap()"><i class="icon-arrow-down"></i> Save current map</button>
-                <ul>
-                  <li ng-repeat="map in maps"><a href="#" ng-click="loadMap(map)">{{map.name}}</a> - <a href="#" ng-click="deleteMap($index)">Delete map</a></li>
-                </ul>
-                <button class="btn" ng-click="logout()"><i class="icon-user"></i> Logout</button>
-              </div>
-            </div>
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
           </div>
         </div>
+
+        <div id="jsonModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">JSON Import &amp; Export</h3>
+          </div>
+          <div class="modal-body">
+            <p>
+              <textarea rows="15" class="span6" ng-Model="mapJson">
+              </textarea>
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="mapToJson();"><i class="icon-arrow-down icon-white"></i> Map to JSON</button>
+            <button class="btn btn-warning" ng-click="JsonToMap();"><i class="icon-arrow-up icon-white"></i>JSON to Map</button>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+
+
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
