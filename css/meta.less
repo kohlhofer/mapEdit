@@ -26,7 +26,7 @@ h2, h3 {
   overflow:auto;
   position:absolute;
   left:200px;
-  top:50px; 
+  top:50px;
   text-align: center;
   padding-top:10px;
   margin: 5px 0 ;
@@ -102,13 +102,13 @@ h2, h3 {
   height: @assetHeight;
   width: @assetWidth;
   border-width: 0px;
-  max-width: none !important; 
+  max-width: none !important;
 }
 
 .terrainAssetToolbar, .unitAssetToolbar {
   height: 37px;
   width: 32px;
-  max-width: none !important; 
+  max-width: none !important;
 }
 
 .toolBar {
@@ -168,4 +168,19 @@ h2, h3 {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.pureMap {
+  div {
+    display: none;
+
+    &#map {
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      margin: 0;
+      padding: 0;
+    }
+  }
 }

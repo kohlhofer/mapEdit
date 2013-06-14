@@ -18,13 +18,15 @@ function gup( name )
   if( results == null )
     return "";
   else
-    return results[1];
+    return results[1].replace(/\/$/, '');
 }
 
-var initialLoadMapId = gup('m').replace(/\/$/, '')
+var initialLoadMapId = gup('m')
 if (initialLoadMapId === '') {
   initialLoadMap = null;
 }
+
+var pureMap = gup('p')
 
 function mapController($scope, $http, angularFire) {
 
@@ -374,10 +376,13 @@ function mapController($scope, $http, angularFire) {
       $http.jsonp(firebaseUrl + '/v2/maps/' + username + '/' + mapId + '.json?callback=JSON_CALLBACK').
           success(function(data, status, headers, config) {
             $scope.map = data.map;
+            $scope.initialMapLoaded = true;
           });
     }
 
   }
+
+  $scope.pureMap = pureMap === '1';
 }
 
 mapController.$inject = ['$scope', '$http', 'angularFire'];
