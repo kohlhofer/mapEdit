@@ -1,4 +1,32 @@
-function mapController($scope, angularFire) {
+function randomString() {
+	var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+	var string_length = 8;
+	var randomstring = '';
+	for (var i=0; i<string_length; i++) {
+		var rnum = Math.floor(Math.random() * chars.length);
+		randomstring += chars.substring(rnum,rnum+1);
+	}
+	return randomstring;
+}
+
+function gup( name )
+{
+  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+  var regexS = "[\\?&]"+name+"=([^&#]*)";
+  var regex = new RegExp( regexS );
+  var results = regex.exec( window.location.href );
+  if( results == null )
+    return "";
+  else
+    return results[1];
+}
+
+var initialLoadMapId = gup('m').replace(/\/$/, '')
+if (initialLoadMapId === '') {
+  initialLoadMap = null;
+}
+
+function mapController($scope, $http, angularFire) {
 
   var terrainAssetPath = "img/terrains/"
   $scope.unitAssetPath = "img/units"
@@ -233,7 +261,7 @@ function mapController($scope, angularFire) {
         $scope.map.data[x][y].buildingVariant = 0;
         $scope.map.data[x][y].buildingFaction = 'neutral';
       }
-      
+
     }
   }
 
@@ -302,9 +330,8 @@ function mapController($scope, angularFire) {
     if (error) {
     } else if (user) {
       $scope.user = user;
-      console.log("loading...")
-      var resourceUrl = firebaseUrl + '/maps/' + user.username;
-      promise = angularFire(resourceUrl, $scope, 'maps', []);
+      var resourceUrl = firebaseUrl + '/v2/maps/' + user.username;
+      promise = angularFire(resourceUrl, $scope, 'maps', {});
       $scope.$apply();
     }
   });
@@ -321,8 +348,11 @@ function mapController($scope, angularFire) {
   }
 
   $scope.saveCurrentMap = function() {
-    $scope.maps.push({name: $scope.mapName, map: angular.fromJson(angular.toJson($scope.map))});
-    delete $scope.mapName;
+    var mapName = randomString();
+    while ($scope.maps[mapName] !== undefined) {
+      mapName = randomString();
+    }
+    $scope.maps[mapName] = {map: angular.fromJson(angular.toJson($scope.map))};
   }
 
   $scope.loadMap = function(map) {
@@ -335,6 +365,19 @@ function mapController($scope, angularFire) {
 
   // init the map
   $scope.map = {name:"untitled", description:"", data:$scope.setUpMap()};
+
+  if (initialLoadMapId && initialLoadMapId !== null) {
+    var splitted = initialLoadMapId.match(/^([^\/]+)\/(.*)$/);
+    var username = splitted[1];
+    var mapId = splitted[2];
+    if (username && username !== '' && mapId && mapId !== '') {
+      $http.jsonp(firebaseUrl + '/v2/maps/' + username + '/' + mapId + '.json?callback=JSON_CALLBACK').
+          success(function(data, status, headers, config) {
+            $scope.map = data.map;
+          });
+    }
+
+  }
 }
 
-mapController.$inject = ['$scope', 'angularFire'];
+mapController.$inject = ['$scope', '$http', 'angularFire'];
