@@ -26,7 +26,7 @@ if (initialLoadMapId === '') {
   initialLoadMap = null;
 }
 
-var pureMap = gup('p')
+var pureMap = (gup('p') === '1');
 
 function mapController($scope, $http, angularFire) {
 
@@ -376,13 +376,27 @@ function mapController($scope, $http, angularFire) {
       $http.jsonp(firebaseUrl + '/v2/maps/' + username + '/' + mapId + '.json?callback=JSON_CALLBACK').
           success(function(data, status, headers, config) {
             $scope.map = data.map;
-            $scope.initialMapLoaded = true;
+            if (pureMap) {
+              var resizeDocument = function() {
+                if ($('body').is('.pureMap')) {
+                  var width = $('#map ul').width();
+                  var height = $('#map ul').height();
+                  $('html,body').width(width).height(height);
+                  window.initialMapLoaded = true;
+                } else {
+                  setTimeout(resizeDocument, 100);
+                }
+              }
+              resizeDocument();
+            } else {
+              window.initialMapLoaded = true;
+            }
           });
     }
 
   }
 
-  $scope.pureMap = pureMap === '1';
+  $scope.pureMap = pureMap;;
 }
 
 mapController.$inject = ['$scope', '$http', 'angularFire'];
