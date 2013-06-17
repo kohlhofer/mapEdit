@@ -133,7 +133,7 @@
             <div ng-show="user">
               <button class="btn" ng-click="saveCurrentMap()"><i class="icon-arrow-down"></i> Save {{map.name}}</button>
               <ul>
-                <li ng-repeat="(mapId, map) in maps"><a href="#" ng-click="loadMap(map)">{{map.map.name}}</a> - <a href="?m={{user.username}}/{{mapId}}">Perma Link</a> - <a href="#" ng-click="deleteMap($index)">Delete map</a></li>
+                <li ng-repeat="(mapId, map) in maps"><a href="#" ng-click="loadMap(map)">{{map.map.name}}</a> - <a href="?m={{user.username}}/{{mapId}}">Perma Link</a> - <a href="#" ng-click="deleteMap(mapId)">Delete map</a></li>
               </ul>
               <button class="btn" ng-click="logout()"><i class="icon-user"></i> Logout</button>
             </div>

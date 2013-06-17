@@ -361,8 +361,8 @@ function mapController($scope, $http, angularFire) {
     $scope.map = angular.fromJson(angular.toJson(map.map));
   }
 
-  $scope.deleteMap = function(index) {
-    $scope.maps.splice(index, 1);
+  $scope.deleteMap = function(id) {
+    delete $scope.maps[id];
   }
 
   // init the map
