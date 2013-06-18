@@ -366,7 +366,7 @@ function mapController($scope, $http, angularFire) {
   }
 
   // init the map
-  $scope.map = {name:"", description:"", data:$scope.setUpMap()};
+  $scope.map = {name:"Untitled Map", description:"", data:$scope.setUpMap()};
 
   if (initialLoadMapId && initialLoadMapId !== null) {
     var splitted = initialLoadMapId.match(/^([^\/]+)\/(.*)$/);
