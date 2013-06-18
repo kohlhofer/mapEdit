@@ -13,6 +13,10 @@ h2, h3 {
   font-weight: normal;
 }
 
+#waterMark {
+  display:none;
+}
+
 .box {
  margin:0px;
  width:80px;
@@ -172,7 +176,6 @@ h2, h3 {
 
 body.pureMap {
   overflow: hidden;
-
   div {
     display: none;
 
@@ -186,6 +189,22 @@ body.pureMap {
       min-width: 0;
       min-height: 0;
       overflow: hidden;
+      #waterMark {
+        display:block;
+        padding:10px;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 100;
+        position: absolute;
+        bottom:10px;
+        right:10px;
+        color:#DDD;
+        strong {
+          display:block;
+          font-size:1.3em;
+          font-weight: bold;
+          color:#FFF;
+        }
+      }
     }
   }
 }

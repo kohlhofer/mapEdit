@@ -396,7 +396,7 @@ function mapController($scope, $http, angularFire) {
 
   }
 
-  $scope.pureMap = pureMap;;
+  $scope.pureMap = pureMap;
 }
 
 mapController.$inject = ['$scope', '$http', 'angularFire'];
