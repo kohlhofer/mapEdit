@@ -101,7 +101,7 @@ function mapController($scope, $http, angularFire) {
     dropzone:{
       id:'dropzone',
       art:[buildingAssetPath+"dropzone_neutral.png",buildingAssetPath+"dropzone_faction_0.png",buildingAssetPath+"dropzone_faction_1.png"],
-      label:'dropzone',
+      label:'drop zone',
       ownable:true,
       faction:false
     }
@@ -366,7 +366,7 @@ function mapController($scope, $http, angularFire) {
   }
 
   // init the map
-  $scope.map = {name:"untitled", description:"", data:$scope.setUpMap()};
+  $scope.map = {name:"", description:"", data:$scope.setUpMap()};
 
   if (initialLoadMapId && initialLoadMapId !== null) {
     var splitted = initialLoadMapId.match(/^([^\/]+)\/(.*)$/);

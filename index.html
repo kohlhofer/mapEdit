@@ -27,7 +27,7 @@
 
         <div class="topBar unselectable">
           <span>
-            Title: <input ng-model="map.name" />
+            <input ng-model="map.name" placeholder="Name your map ..." />
           </span>
           <span>
             Dimensions: <strong>{{map.data.length}}</strong> <a ng-click="addCollumn();" class="btn btn-mini btn-success">+</a><a ng-click="deletedCollumn();" class="btn btn-mini btn-danger">-</a> by <strong>{{map.data[0].length}}</strong> <a ng-click="addRow();" class="btn btn-mini btn-success">+</a><a ng-click="deleteRow();" class="btn btn-mini btn-danger">-</a>
@@ -35,6 +35,7 @@
           <span>
             <a href="#loadSaveModal" role="button" class="btn btn-small" data-toggle="modal">Load &amp; Save</a>
             <a href="#jsonModal" role="button" class="btn btn-small" data-toggle="modal">JSON</a>
+            <a href="#aboutModal" role="button" class="btn btn-small" data-toggle="modal">About</a>
           </span>
 
         </div>
@@ -73,7 +74,7 @@
           </div>
 
           <div class="box">
-            <h3>Factions</h3>
+            <h3>Players</h3>
             <ul class="toolBar unselectable">
               <li class="tool" ng-class="{selectedTool: selectedFaction==0}">
                 <a ng-click="selectedFaction = 0;" class="playera">
@@ -128,6 +129,7 @@
           </div>
           <div class="modal-body">
             <div ng-hide="user">
+              <p>This map edior requires a (free)  <a href="http://github.com" target="new">Github.com</a> account for loading and saving maps.</p>
               <button class="btn" ng-click="login()"><i class="icon-user"></i> Login with GitHub</button>
             </div>
             <div ng-show="user">
@@ -161,6 +163,26 @@
           </div>
         </div>
 
+        <div id="aboutModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Enhanced Wars Map Editor</h3>
+          </div>
+          <div class="modal-body">
+            <p>
+              This map editor was developed as a tool for the development of <a href="http://enhancedwars.com" target="new">Enhanced Wars</a> by Quarter Spiral. We use it interanlly to test and refine the game's art and to generate early maps. This is only a preview and we reserve the right to remove it at any time and without notice. <a href="http://feedback.quarterspiral.com/forums/208101-enhanced-wars" target="new">We welcome any feedback</a>.
+            </p>
+            <p><strong>Warning: Maps created here may not be compatible or otherwise usable in the final version of Enhanced Wars. Data may be deleted regularely as active development progresses.</strong><p>
+            <p>Make sure to sign up the latest news at <a href="http://enhancedwars.com" target="new">Enhancedwars.com</a>.</p>
+            <p>Enjoy!</p>
+            <hr />
+            <p>Copyright 2013 by <a href="http://quarterspiral.com" target="new">Quarter Spiral</a>. All rights reserved.</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+
 
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -182,5 +204,50 @@
             g.src='//www.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
         </script>
+
+        <script>
+
+          (function(){
+            var uv = document.createElement('script');
+            uv.type = 'text/javascript';
+            uv.async = true;
+            uv.src = '//widget.uservoice.com/24oEv58YxGW9DZwh3xuCg.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(uv,s)
+          })();
+
+          UserVoice = window.UserVoice || [];
+
+          // Identify the user and pass traits
+          // To enable, replace sample data with actual user traits and uncomment the line
+          UserVoice.push(['identify',{
+            //email:      'john.doe@example.com', // UserÃ¢â‚¬â„¢s email address
+            //name:       'John Doe', // UserÃ¢â‚¬â„¢s real name
+            //created_at: 1364406966, // Unix timestamp for the date the user signed up
+            //id:         123, // Optional: Unique id of the user (if set, this should not change)
+            //type:       'Owner', // Optional: segment your users by type
+            //account: {
+            //  id:           123, // Optional: associate multiple users with a single account
+            //  name:         'Acme, Co.', // Account name
+            //  created_at:   1364406966, // Unix timestamp for the date the account was created
+            //  monthly_rate: 9.99, // Decimal; monthly rate of the account
+            //  ltv:          1495.00, // Decimal; lifetime value of the account
+            //  plan:         'Enhanced' // Plan name for the account
+            //}
+          }]);
+
+
+          // Pin the (?) icon for the contact form w/Instant Answers on your page
+          UserVoice.push(['pin', 'contact']);
+          UserVoice.push(['pin', 'smartvote']);
+
+
+          // Autoprompt users for Satisfaction and SmartVote
+          // (only displayed when certain conditions are met)
+          UserVoice.push(['autoprompt']);
+
+        </script>
+
+
     </body>
 </html>
