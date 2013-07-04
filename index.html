@@ -18,7 +18,7 @@
         <script src="js/vendor/angular.min.js"></script>
         <script src="js/app.js"></script>
     </head>
-    <body ng-controller="mapController" ng-class="{pureMap: pureMap}">
+    <body ng-controller="mapController" ng-class="{pureMap: pureMap}" ng-mousedown="setMouseStateDown($event)" ng-mouseup="setMouseStateUp($event)">
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
@@ -135,7 +135,7 @@
                   <img class="terrainAsset" ng-src="{{terrains[cell.terrain].art[cell.terrainVariant]}}" ng-hide="cell.terrain == 'none'" />
                    <img class="buildingAsset" ng-src="{{buildings[cell.building].art[cell.buildingVariant]}}" ng-hide="cell.building == 'none'" />
                   <img class="unitAsset" ng-src="{{unitAssetPath}}/{{cell.unitFaction}}/{{units[cell.unit].art[cell.unitOrientation]}}" ng-hide="cell.unit == 'none'" />
-                  <a ng-click="clickMapCell(cell.x,cell.y);" class="mapCellLink"></a>
+                  <a ng-mouseenter="clickMapCell(cell.x,cell.y);" ng-mousedown="clickMapCell(cell.x,cell.y, true);" class="mapCellLink"></a>
                 </li>
               </ul>
             </li>

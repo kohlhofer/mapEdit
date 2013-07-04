@@ -9,8 +9,7 @@ function randomString() {
 	return randomstring;
 }
 
-function gup( name )
-{
+function gup(name) {
   name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
   var regexS = "[\\?&]"+name+"=([^&#]*)";
   var regex = new RegExp( regexS );
@@ -215,8 +214,20 @@ function mapController($scope, $http, angularFire) {
   // Calles when the user clicks on a cell in the map
   // Depending on which tool is selected modifies either terrain or unit property of the map cell
 
-  $scope.clickMapCell = function(x,y) {
+  $scope.setMouseStateDown = function(event) {
+    $scope.leftMouseDown = event.which === 1;
+  }
 
+  $scope.setMouseStateUp = function(event) {
+    if (event.which === 1) {
+      $scope.leftMouseDown = false;
+    }
+  }
+
+  $scope.clickMapCell = function(x,y,forceMouseDown) {
+    if (!forceMouseDown && !$scope.leftMouseDown) {
+      return;
+    }
     if ($scope.selectedTerrain) {
       if ($scope.map.data[x][y].terrain == $scope.selectedTerrain) {
         if ($scope.map.data[x][y].terrainVariant == $scope.terrains[$scope.selectedTerrain].art.length-1) {
