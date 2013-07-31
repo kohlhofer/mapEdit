@@ -158,7 +158,17 @@ function mapController($scope, $http, angularFire) {
         up:"sb_u.png",
         down:"sb_d.png"
       },
-      label:'spider Bot'
+      label:'Spider Bot'
+    },
+    scrapper:{
+      id:'scrapper',
+      art:{
+        right:"sc_r.png",
+        left:"sc_l.png",
+        up:"sc_u.png",
+        down:"sc_d.png"
+      },
+      label:'Scrapper'
     }
   }
 
